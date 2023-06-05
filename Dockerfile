@@ -1,4 +1,4 @@
-FROM eoepca/iga-remote-desktop:latest
+FROM eoepca/iga-remote-desktop:1.0.0
 
 USER root
 
