@@ -1,9 +1,9 @@
-FROM eoepca/iga-remote-desktop:1.0.0
+FROM ghcr.io/eoepca/iga-remote-desktop:1.2.0
 
 USER root
 
-RUN apt-get install default-jdk maven wget -y
-ENV JAVA_HOME "/usr/lib/jvm/java-11-openjdk-amd64/"
+RUN apt update && apt-get -y install default-jdk maven wget 
+ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64/"
 
 COPY response.varfile /tmp/response.varfile
 RUN wget -q -O /tmp/esa-snap_all_unix_9_0.sh \
