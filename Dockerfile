@@ -2,7 +2,16 @@ FROM ghcr.io/eoepca/iga-remote-desktop:1.2.0
 
 USER root
 
-RUN apt update && apt-get -y install default-jdk maven wget 
+RUN apt update && apt-get -y install \
+    default-jdk \
+    maven \
+    wget \
+    libgl1-mesa-dri \
+    libgl1-mesa-glx \
+    libglu1-mesa \
+    mesa-utils \
+    && rm -rf /var/lib/apt/lists/*
+
 ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64/"
 
 COPY response.varfile /tmp/response.varfile
