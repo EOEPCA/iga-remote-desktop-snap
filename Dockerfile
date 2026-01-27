@@ -2,6 +2,8 @@ FROM ghcr.io/eoepca/iga-remote-desktop:1.2.0
 
 USER root
 
+ENV LIBGL_ALWAYS_SOFTWARE=1
+
 RUN apt update && apt-get -y install \
     default-jdk \
     maven \
@@ -20,10 +22,12 @@ RUN wget -q -O /tmp/esa-snap_all_unix_9_0.sh \
    sh /tmp/esa-snap_all_unix_9_0.sh -q -varfile /tmp/response.varfile && \
    rm -f /tmp/esa-snap_all_unix_9_0.sh 
 
-ENV PATH=/usr/local/snap/bin:$PATH
+ENV PATH=/usr/local/snap/bin:$PATH 
 
 RUN chown -R $NB_UID:$NB_GID $HOME
 
 ADD snap.desktop /etc/xdg/autostart/snap.desktop
 
 USER $NB_USER
+
+RUN snap --nosplash --nogui --modules --update-all 2>&1 | while read -r line; do echo "$line"; [ "$line" = "updates=0" ] && sleep 2 && pkill -TERM -f "snap/jre/bin/java"; done || true
