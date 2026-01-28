@@ -57,4 +57,4 @@ The image tag is derived automatically from the Git reference that triggered the
 | Image tag    | SNAP version  |
 | ------------ | ------------- |
 |    1.0.0     |     9.0       |
-|    1.1.0     |    12.0       |
+|    1.1.x     |    12.0       |

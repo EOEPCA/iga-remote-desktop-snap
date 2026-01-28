@@ -29,7 +29,8 @@ ENV PATH=/usr/local/snap/bin:$PATH
 
 RUN chown -R $NB_UID:$NB_GID $HOME
 
-ADD snap.desktop /etc/xdg/autostart/snap.desktop
+COPY snap.desktop /etc/xdg/autostart/snap.desktop
+COPY snap.desktop /usr/share/applications/snap.desktop
 
 USER $NB_USER
 
