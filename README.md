@@ -1,6 +1,5 @@
 # SNAP via Remote Desktop
 
-
 This interactive application provides a remote desktop with SNAP via JupyterHub.
 
 It relies on the [jupyter-remote-desktop-proxy](https://github.com/jupyterhub/jupyter-remote-desktop-proxy)
@@ -35,7 +34,7 @@ This project publishes container images to GitHub Container Registry (GHCR) foll
 Images are published to:
 
 ```
-ghcr.io/<repository-owner>/iat-jupyterlab
+ghcr.io/<repository-owner>/iga-remote-desktop-snap
 ```
 
 The registry owner corresponds to the GitHub repository owner (user or organization).
