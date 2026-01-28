@@ -17,10 +17,13 @@ RUN apt update && apt-get -y install \
 ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64/"
 
 COPY response.varfile /tmp/response.varfile
-RUN wget -q -O /tmp/esa-snap_all_unix_9_0.sh \
-  "http://step.esa.int/downloads/9.0/installers/esa-snap_all_unix_9_0_0.sh" && \
-   sh /tmp/esa-snap_all_unix_9_0.sh -q -varfile /tmp/response.varfile && \
-   rm -f /tmp/esa-snap_all_unix_9_0.sh 
+
+ARG SNAP_MAJOR_VERSION=12.0
+ARG SNAP_MINOR_VERSION=0
+RUN wget -q -O /tmp/esa-snap_all_linux_${SNAP_MAJOR_VERSION}.sh \
+  "https://download.esa.int/step/snap/${SNAP_MAJOR_VERSION}/installers/esa-snap_all_linux-${SNAP_MAJOR_VERSION}.${SNAP_MINOR_VERSION}.sh" && \
+   sh /tmp/esa-snap_all_linux_${SNAP_MAJOR_VERSION}.sh -q -varfile /tmp/response.varfile && \
+   rm -f /tmp/esa-snap_all_linux_${SNAP_MAJOR_VERSION}.sh
 
 ENV PATH=/usr/local/snap/bin:$PATH 
 
