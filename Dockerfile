@@ -12,7 +12,6 @@ RUN apt update && apt-get -y install \
     libgl1-mesa-glx \
     libglu1-mesa \
     mesa-utils \
-    lib2.0-bin \
     && rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64/"
