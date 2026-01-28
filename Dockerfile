@@ -30,4 +30,23 @@ ADD snap.desktop /etc/xdg/autostart/snap.desktop
 
 USER $NB_USER
 
-RUN snap --nosplash --nogui --modules --update-all 2>&1 | while read -r line; do echo "$line"; [ "$line" = "updates=0" ] && sleep 2 && pkill -TERM -f "snap/jre/bin/java"; done || true
+RUN set -euo pipefail; \
+    mkfifo /tmp/snap.pipe; \
+    ( snap --nosplash --nogui --modules --update-all > /tmp/snap.pipe 2>&1 ) & \
+    pid=$!; \
+    echo "SNAP pid=$pid"; \
+    found=0; \
+    while IFS= read -r line; do \
+      echo "$line"; \
+      if [ "$line" = "updates=0" ]; then \
+        found=1; \
+        echo "Detected updates=0, stopping SNAP..."; \
+        kill -TERM "$pid" || true; \
+        break; \
+      fi; \
+    done < /tmp/snap.pipe; \
+    rm -f /tmp/snap.pipe; \
+    if [ "$found" -eq 0 ]; then \
+      echo "Did not detect updates=0"; \
+    fi; \
+    wait "$pid" || true
