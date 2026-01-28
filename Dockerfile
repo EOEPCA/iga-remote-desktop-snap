@@ -12,6 +12,7 @@ RUN apt update && apt-get -y install \
     libgl1-mesa-glx \
     libglu1-mesa \
     mesa-utils \
+    lib2.0-bin \
     && rm -rf /var/lib/apt/lists/*
 
 ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64/"
@@ -29,7 +30,8 @@ ENV PATH=/usr/local/snap/bin:$PATH
 
 RUN chown -R $NB_UID:$NB_GID $HOME
 
-ADD snap.desktop /etc/xdg/autostart/snap.desktop
+COPY snap.desktop /etc/xdg/autostart/snap.desktop
+COPY snap.desktop /usr/share/applications/snap.desktop
 
 USER $NB_USER
 
