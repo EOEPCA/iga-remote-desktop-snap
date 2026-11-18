@@ -39,7 +39,8 @@ ghcr.io/<repository-owner>/iga-remote-desktop-snap
 
 The registry owner corresponds to the GitHub repository owner (user or organization).
 
-Images are built using Kaniko and pushed using OCI-compliant tooling.
+Images are built with Docker Buildx, scanned as a Docker archive, and published
+with Skopeo. Pull requests run the same build and scan but cannot publish.
 
 ### Tagging Strategy
 
@@ -58,3 +59,16 @@ The image tag is derived automatically from the Git reference that triggered the
 | ------------ | ------------- |
 |    1.0.0     |     9.0       |
 |    1.1.x     |    12.0       |
+
+## Image maintenance and validation
+
+The Dockerfile pins the remote-desktop parent to release `1.2.0` and declares
+the SNAP major/minor version explicitly. Update these versions in reviewed pull
+requests; require a successful image build and SNAP desktop smoke test before
+release. A Fedora migration needs separate SNAP, Java, and desktop compatibility
+evidence.
+
+Pull requests build and scan the image without publishing it, then retain an
+SPDX SBOM for seven days. Trivy HIGH/CRITICAL findings are report-only and are
+not a security certification. Monthly Dependabot updates check Docker base
+images and GitHub Actions.
