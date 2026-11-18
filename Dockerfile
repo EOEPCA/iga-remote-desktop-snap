@@ -34,7 +34,7 @@ RUN test "${TARGETARCH}" = "amd64" \
 #   JupyterLab
 # ============================================================
 #TODO pin version, e.g. 1.3.0
-FROM ghcr.io/eoepca/iga-remote-desktop:latest
+FROM ghcr.io/eoepca/iga-remote-desktop:latest-dev
 
 USER root
 
