@@ -135,7 +135,7 @@ jobs:
 
           TAG=${{ needs.release-meta.outputs.tag }}
           REGISTRY=$(yq -r '.image_registry' release.yaml)
-          IMAGE_PREFIX=$(yq -r '.image_prefix' qgis.yaml)
+          IMAGE_PREFIX=$(yq -r '.image_prefix' release.yaml)
           IMAGE=$(yq -r '.image_name' release.yaml)
 
           IMAGE_REF="${REGISTRY}/${IMAGE_PREFIX}/${IMAGE}:${TAG}"
