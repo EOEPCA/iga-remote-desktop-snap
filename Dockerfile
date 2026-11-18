@@ -31,12 +31,10 @@ RUN test "${TARGETARCH}" = "amd64" \
 # Base:
 #   Python 3.13
 #   XFCE / TurboVNC / Firefox
-#   Nextcloud 33.0.7-20260629
 #   JupyterLab
 # ============================================================
 #TODO pin version, e.g. 1.3.0
-ARG BASE_IMAGE=ghcr.io/eoepca/iga-remote-desktop:latest
-FROM ${BASE_IMAGE}
+FROM ghcr.io/eoepca/iga-remote-desktop:latest
 
 USER root
 
